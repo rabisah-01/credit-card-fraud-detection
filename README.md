@@ -1,24 +1,24 @@
 # 💳 Credit Card Fraud Detection
 
-A machine learning project for detecting fraudulent credit card transactions using supervised and anomaly detection techniques. The project focuses on handling highly imbalanced data, optimizing classification performance, and explaining model predictions.
+A machine learning project for detecting fraudulent credit card transactions using supervised and anomaly detection algorithms. The project focuses on handling highly imbalanced data with SMOTE, optimizing classification performance, and explaining model predictions using SHAP.
 
 ---
 
 ## 📌 Overview
 
-Credit card fraud is a significant financial problem due to the extremely small number of fraudulent transactions compared to legitimate ones. This project builds and evaluates multiple machine learning models to identify fraudulent transactions while minimizing false positives and false negatives.
+Credit card fraud detection is a highly imbalanced binary classification problem where fraudulent transactions represent only a tiny fraction of all transactions. This project builds and compares multiple machine learning models to accurately identify fraudulent transactions while minimizing false positives and false negatives.
 
 ---
 
-## 🚀 Features
+## ✨ Features
 
 - 📊 Exploratory Data Analysis (EDA)
 - 🧹 Data Preprocessing
 - ⚖️ Class Imbalance Analysis
 - 🔄 SMOTE Oversampling
 - 📏 Feature Scaling
-- 🌲 Random Forest Classifier
 - 📈 Logistic Regression
+- 🌲 Random Forest Classifier
 - 🌳 Isolation Forest
 - 🎯 Threshold Tuning
 - 📉 ROC Curve
@@ -33,18 +33,22 @@ Credit card fraud is a significant financial problem due to the extremely small 
 
 ## 📂 Dataset
 
-**Dataset:** Credit Card Fraud Detection
+This project uses the **Credit Card Fraud Detection** dataset from Kaggle.
 
+**Dataset Link:**  
 https://www.kaggle.com/datasets/mlg-ulb/creditcardfraud
 
-### Features
+The dataset is downloaded automatically using **KaggleHub**, so it is **not included** in this repository.
 
-| Feature | Description |
-|----------|-------------|
-| Time | Seconds elapsed between transactions |
-| V1-V28 | PCA transformed features |
-| Amount | Transaction amount |
-| Class | 0 = Legitimate, 1 = Fraud |
+### Install KaggleHub
+
+```bash
+pip install kagglehub
+```
+
+The dataset will be downloaded automatically the first time you run the project.
+
+> **Note:** A Kaggle account may be required to access the dataset.
 
 ---
 
@@ -58,6 +62,7 @@ https://www.kaggle.com/datasets/mlg-ulb/creditcardfraud
 - SHAP
 - Matplotlib
 - Joblib
+- KaggleHub
 - Jupyter Notebook
 
 ---
@@ -68,12 +73,10 @@ https://www.kaggle.com/datasets/mlg-ulb/creditcardfraud
 credit-card-fraud-detection/
 │
 ├── data/
-│   └── creditcard.csv
+│   └── .gitkeep
 │
 ├── models/
-│   ├── logistic_regression.pkl
-│   ├── random_forest.pkl
-│   └── isolation_forest.pkl
+│   └── .gitkeep
 │
 ├── notebooks/
 │   └── fraud_detection.ipynb
@@ -85,6 +88,7 @@ credit-card-fraud-detection/
 │   └── utils.py
 │
 ├── visuals/
+│   └── .gitkeep
 │
 ├── requirements.txt
 ├── README.md
@@ -96,17 +100,27 @@ credit-card-fraud-detection/
 
 ## ⚙️ Installation
 
+Clone the repository.
+
 ```bash
 git clone https://github.com/yourusername/credit-card-fraud-detection.git
+```
 
+Navigate to the project directory.
+
+```bash
 cd credit-card-fraud-detection
+```
 
+Install the required dependencies.
+
+```bash
 pip install -r requirements.txt
 ```
 
 ---
 
-## ▶️ Train Model
+## ▶️ Train the Model
 
 ```bash
 cd src
@@ -116,7 +130,7 @@ python train.py
 
 ---
 
-## 🔮 Predict
+## 🔮 Make Predictions
 
 ```bash
 cd src
@@ -126,7 +140,7 @@ python predict.py
 
 ---
 
-## 📊 Models
+## 🤖 Models
 
 - Logistic Regression
 - Random Forest Classifier
@@ -134,7 +148,7 @@ python predict.py
 
 ---
 
-## 📈 Evaluation Metrics
+## 📊 Evaluation Metrics
 
 - Accuracy
 - Precision
@@ -160,13 +174,13 @@ python predict.py
 
 ## 🎯 Learning Outcomes
 
-- Handling extremely imbalanced datasets
+- Handling highly imbalanced datasets
 - Fraud detection using machine learning
-- Ensemble learning
-- Anomaly detection
+- Anomaly detection with Isolation Forest
+- Ensemble learning with Random Forest
 - Threshold optimization
 - Model explainability using SHAP
-- Building reusable ML pipelines
+- Building reusable machine learning pipelines
 
 ---
 
