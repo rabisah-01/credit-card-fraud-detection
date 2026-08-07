@@ -19,11 +19,14 @@ from sklearn.preprocessing import StandardScaler
 from preprocessing import preprocess_dataset
 
 from utils import (
-    MODEL_PATH,
     RANDOM_STATE,
     DEFAULT_THRESHOLD,
     ensure_parent_directory,
 )
+
+
+# Model path
+MODEL_PATH = Path("../models/random_forest_smote.pkl")
 
 
 def build_pipeline() -> Pipeline:
@@ -57,7 +60,6 @@ def build_pipeline() -> Pipeline:
     return pipeline
 
 
-
 def train_model(
     data_path: str | Path,
     model_path: str | Path = MODEL_PATH,
@@ -70,7 +72,6 @@ def train_model(
     print("🚀 CREDIT CARD FRAUD DETECTION MODEL TRAINING")
     print("=" * 65)
 
-
     # Load dataset
     print("\n📂 Loading dataset...")
 
@@ -79,7 +80,7 @@ def train_model(
     )
 
     print(
-        f"✅ Dataset loaded successfully!"
+        "✅ Dataset loaded successfully!"
     )
 
     print(
@@ -89,7 +90,6 @@ def train_model(
     print(
         f"   Samples: {X.shape[0]}"
     )
-
 
     # Train-test split
     print("\n✂️ Splitting dataset...")
@@ -114,7 +114,6 @@ def train_model(
         f"   Testing samples: {X_test.shape[0]}"
     )
 
-
     # Build pipeline
     print(
         "\n⚙️ Building ML pipeline..."
@@ -130,7 +129,6 @@ def train_model(
         "   StandardScaler → SMOTE → Random Forest"
     )
 
-
     # Train model
     print(
         "\n🤖 Training Random Forest model..."
@@ -145,7 +143,6 @@ def train_model(
         "✅ Model training completed!"
     )
 
-
     # Prediction probabilities
     print(
         "\n📊 Evaluating model performance..."
@@ -155,19 +152,16 @@ def train_model(
         X_test
     )[:, 1]
 
-
     # Apply threshold
     y_pred = (
         y_prob >= DEFAULT_THRESHOLD
     ).astype(int)
-
 
     # ROC-AUC
     roc_auc = roc_auc_score(
         y_test,
         y_prob,
     )
-
 
     print("\n" + "-" * 65)
     print("📈 MODEL PERFORMANCE")
@@ -181,7 +175,6 @@ def train_model(
         f"Decision Threshold  : {DEFAULT_THRESHOLD:.2f}"
     )
 
-
     print(
         "\n📋 Classification Report:"
     )
@@ -192,7 +185,6 @@ def train_model(
             y_pred,
         )
     )
-
 
     # Save model
     print(
@@ -207,12 +199,10 @@ def train_model(
         model_path
     )
 
-
     joblib.dump(
         pipeline,
         model_path,
     )
-
 
     print(
         "✅ Model saved successfully!"
@@ -222,7 +212,6 @@ def train_model(
         f"   Location: {model_path}"
     )
 
-
     print("\n" + "=" * 65)
 
     print(
@@ -231,9 +220,7 @@ def train_model(
 
     print("=" * 65 + "\n")
 
-
     return pipeline
-
 
 
 def main():
@@ -245,13 +232,11 @@ def main():
         )
     )
 
-
     parser.add_argument(
         "--data",
         required=True,
         help="Path to creditcard.csv",
     )
-
 
     parser.add_argument(
         "--model",
@@ -259,9 +244,7 @@ def main():
         help="Path to save trained model",
     )
 
-
     args = parser.parse_args()
-
 
     train_model(
         args.data,
@@ -269,7 +252,9 @@ def main():
     )
 
 
-
 if __name__ == "__main__":
     main()
+
+
+
 # terminal: python train.py --data "../data/creditcard.csv"
