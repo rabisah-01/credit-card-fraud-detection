@@ -85,6 +85,7 @@ pip install kagglehub
 * Imbalanced-learn
 * SHAP
 * Matplotlib
+* Seaborn
 * Joblib
 * KaggleHub
 * Jupyter Notebook
