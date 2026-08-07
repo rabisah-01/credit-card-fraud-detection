@@ -12,22 +12,22 @@ Credit card fraud detection is a highly imbalanced binary classification problem
 
 ## ✨ Features
 
-- 📊 Exploratory Data Analysis (EDA)
-- 🧹 Data Preprocessing
-- ⚖️ Class Imbalance Analysis
-- 🔄 SMOTE Oversampling
-- 📏 Feature Scaling
-- 📈 Logistic Regression
-- 🌲 Random Forest Classifier
-- 🌳 Isolation Forest
-- 🎯 Threshold Tuning
-- 📉 ROC Curve
-- 📈 Precision-Recall Curve
-- 📋 Confusion Matrix
-- 📊 Feature Importance
-- 🔍 SHAP Explainability
-- 💾 Model Saving & Loading
-- 🖥️ Prediction Script
+* 📊 Exploratory Data Analysis (EDA)
+* 🧹 Data Preprocessing
+* ⚖️ Class Imbalance Analysis
+* 🔄 SMOTE Oversampling
+* 📏 Feature Scaling
+* 📈 Logistic Regression
+* 🌲 Random Forest Classifier
+* 🌳 Isolation Forest
+* 🎯 Threshold Tuning
+* 📉 ROC Curve
+* 📈 Precision-Recall Curve
+* 📋 Confusion Matrix
+* 📊 Feature Importance
+* 🔍 SHAP Explainability
+* 💾 Model Saving & Loading
+* 🖥️ Prediction Script
 
 ---
 
@@ -35,13 +35,36 @@ Credit card fraud detection is a highly imbalanced binary classification problem
 
 This project uses the **Credit Card Fraud Detection** dataset from Kaggle.
 
-**Dataset Link:**  
+**Dataset Link:**
+
 https://www.kaggle.com/datasets/mlg-ulb/creditcardfraud
 
-The dataset is downloaded automatically using **KaggleHub**.
-The dataset is **not included** in this repository because of its large size.
-Download the dataset from Kaggle and place the required files inside the `data/` directory.
+### Dataset Usage
 
+The project uses the dataset in two ways:
+
+### 1. Jupyter Notebook
+
+The notebook downloads the dataset automatically using **KaggleHub**.
+
+```python
+import kagglehub
+
+path = kagglehub.dataset_download("mlg-ulb/creditcardfraud")
+```
+
+The notebook can therefore be run without manually placing the dataset in the `data/` directory.
+
+### 2. Training and Prediction Scripts
+
+The `train.py` and `predict.py` scripts use the local CSV dataset:
+
+```text
+data/
+└── creditcard.csv
+```
+
+The dataset is **not included in this repository** because of its large size.
 
 ### Install KaggleHub
 
@@ -49,24 +72,22 @@ Download the dataset from Kaggle and place the required files inside the `data/`
 pip install kagglehub
 ```
 
-The dataset will be downloaded automatically the first time you run the project.
-
-> **Note:** A Kaggle account may be required to access the dataset.
+> **Note:** A Kaggle account may be required to access the dataset through KaggleHub.
 
 ---
 
 ## 🛠️ Tech Stack
 
-- Python
-- Pandas
-- NumPy
-- Scikit-learn
-- Imbalanced-learn
-- SHAP
-- Matplotlib
-- Joblib
-- KaggleHub
-- Jupyter Notebook
+* Python
+* Pandas
+* NumPy
+* Scikit-learn
+* Imbalanced-learn
+* SHAP
+* Matplotlib
+* Joblib
+* KaggleHub
+* Jupyter Notebook
 
 ---
 
@@ -76,7 +97,7 @@ The dataset will be downloaded automatically the first time you run the project.
 credit-card-fraud-detection/
 │
 ├── data/
-│   └── .gitkeep
+│   └── creditcard.csv
 │
 ├── models/
 │   └── .gitkeep
@@ -123,67 +144,162 @@ pip install -r requirements.txt
 
 ---
 
+## 📓 Run the Notebook
+
+Start Jupyter Notebook:
+
+```bash
+jupyter notebook
+```
+
+Open:
+
+```text
+notebooks/fraud_detection.ipynb
+```
+
+The notebook downloads the dataset automatically using **KaggleHub**.
+
+---
+
 ## ▶️ Train the Model
+
+Make sure the dataset is available at:
+
+```text
+data/creditcard.csv
+```
+
+Then run:
 
 ```bash
 cd src
-
-python train.py
+python train.py --data "../data/creditcard.csv"
 ```
+
+The training script processes the dataset, trains the machine learning models, evaluates their performance, and saves the trained model.
 
 ---
 
 ## 🔮 Make Predictions
 
+After training the model, predictions can be generated using:
+
 ```bash
 cd src
-
-python predict.py
+python predict.py --input "../data/creditcard.csv"
 ```
 
 ---
 
 ## 🤖 Models
 
-- Logistic Regression
-- Random Forest Classifier
-- Isolation Forest
+The project evaluates the following models:
+
+* Logistic Regression
+* Random Forest Classifier
+* Isolation Forest
+
+The supervised models use different sampling techniques to handle the highly imbalanced fraud dataset.
+
+---
+
+## ⚖️ Imbalance Handling
+
+The dataset contains significantly fewer fraudulent transactions than legitimate transactions.
+
+The project uses:
+
+* **SMOTE (Synthetic Minority Over-sampling Technique)**
+* **RandomUnderSampler**
+
+SMOTE generates synthetic samples for the minority fraud class, while RandomUnderSampler reduces the number of majority-class samples.
 
 ---
 
 ## 📊 Evaluation Metrics
 
-- Accuracy
-- Precision
-- Recall
-- F1 Score
-- ROC-AUC Score
-- Precision-Recall Curve
-- Confusion Matrix
+The models are evaluated using:
+
+* Accuracy
+* Precision
+* Recall
+* F1 Score
+* ROC-AUC Score
+* Precision-Recall Curve
+* Confusion Matrix
+
+For fraud detection, **Precision, Recall, and F1 Score** are especially important because ROC-AUC alone does not fully represent the model's ability to detect fraudulent transactions.
+
+---
+
+## 🏆 Final Model
+
+**Random Forest with SMOTE** was selected as the final model.
+
+The model achieved:
+
+| Metric    | Score |
+| --------- | ----: |
+| Precision |  0.95 |
+| Recall    |  0.79 |
+| F1 Score  |  0.86 |
+
+Although Random Forest with RandomUnderSampler achieved a slightly higher ROC-AUC, its F1 Score was significantly lower. Therefore, **RF + SMOTE** provided a better balance between precision and recall for fraud detection.
+
+---
+
+## 🎯 Threshold Tuning
+
+Threshold tuning was performed to improve the final model's prediction performance.
+
+* **Best threshold:** `0.51`
+* **Precision before tuning:** `0.93`
+* **Precision after tuning:** `0.95`
+
+The tuned threshold improved precision while maintaining strong fraud detection performance.
+
+---
+
+## 🔍 SHAP Explainability
+
+SHAP was used to understand which features have the greatest influence on the Random Forest model's predictions.
+
+The analysis showed:
+
+* **V14** is the most important feature.
+* **Low V14 values** tend to push the model toward predicting fraud.
+* Other important features include **V4, V12, V10, and V3**.
 
 ---
 
 ## 📷 Visualizations
 
-- Class Distribution
-- Correlation Heatmap
-- ROC Curve
-- Precision-Recall Curve
-- Confusion Matrix
-- Feature Importance
-- SHAP Summary Plot
+The project includes visualizations for:
+
+* Class Distribution
+* Correlation Heatmap
+* ROC Curve
+* Precision-Recall Curve
+* Confusion Matrix
+* Feature Importance
+* SHAP Summary Plot
 
 ---
 
 ## 🎯 Learning Outcomes
 
-- Handling highly imbalanced datasets
-- Fraud detection using machine learning
-- Anomaly detection with Isolation Forest
-- Ensemble learning with Random Forest
-- Threshold optimization
-- Model explainability using SHAP
-- Building reusable machine learning pipelines
+* Handling highly imbalanced datasets
+* Fraud detection using machine learning
+* Applying SMOTE for minority-class oversampling
+* Comparing different sampling techniques
+* Anomaly detection with Isolation Forest
+* Ensemble learning with Random Forest
+* Threshold optimization
+* Evaluating models using Precision, Recall, and F1 Score
+* Model explainability using SHAP
+* Building reusable machine learning pipelines
+* Working with both KaggleHub and local datasets
 
 ---
 
